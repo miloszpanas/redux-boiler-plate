@@ -1,23 +1,39 @@
-import { ADD_TODO, REMOVE_TODO, TOOGLE_TODO } from "../types";
+import {
+  ADD_TODO,
+  REMOVE_TODO,
+  TOOGLE_TODO,
+  ENTER_EDIT_MODE,
+  EDIT_ITEM,
+} from "../types";
 
-const addTodo = todo => ({
+const addTodo = (todo) => ({
   type: ADD_TODO,
-  payload: todo
+  payload: todo,
 });
 
-const removeTodo = id => ({
+const removeTodo = (id) => ({
   type: REMOVE_TODO,
-  payload: id
+  payload: id,
 });
 
-const toggleTodo = id => ({
+const toggleTodo = (id) => ({
   type: TOOGLE_TODO,
-  payload: id
-})
+  payload: id,
+});
 
+const enterEditMode = (id) => ({
+  type: ENTER_EDIT_MODE,
+  payload: {
+    id,
+  },
+});
 
-export {
-  addTodo,
-  removeTodo,
-  toggleTodo
-};
+const editItem = (id, updatedItem) => ({
+  type: EDIT_ITEM,
+  payload: {
+    id,
+    updatedItem,
+  },
+});
+
+export { addTodo, removeTodo, toggleTodo, enterEditMode, editItem };

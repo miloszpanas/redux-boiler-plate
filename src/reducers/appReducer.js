@@ -1,16 +1,18 @@
-import { ADD_TODO, REMOVE_TODO, TOOGLE_TODO } from "../types/";
+import { ADD_TODO, REMOVE_TODO, TOOGLE_TODO, ENTER_EDIT_MODE, EDIT_ITEM } from "../types/";
 
 const initialState = {
   todos: [
     {
       id: 0,
       activity: "whatever",
-      complete: false
+      complete: false,
+      edited: false,
     },
     {
       id: 1,
       activity: "whatever2",
-      complete: false
+      complete: false,
+      edited: false
     }
   ]
 };
@@ -36,6 +38,28 @@ export default function appReducer(state = initialState, action) {
             : {...todo, complete: !todo.complete }
         )
       };
+    case ENTER_EDIT_MODE:
+      return {
+        ...state,
+        todos: state.todos.map(todo => {
+          return (
+            todo.id !== action.payload.id ? todo : {
+              ...todo, edited: !todo.edited
+            }
+          )
+        })
+      }
+    case EDIT_ITEM:
+      return {
+        ...state,
+        todos: state.todos.map(todo => {
+          return (
+            todo.id !== action.payload.id ? todo : {
+              ...todo, activity: action.payload.updatedItem
+            }
+          )
+        })
+      }
     default:
       return state;
   }
